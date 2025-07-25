@@ -215,6 +215,7 @@ System.out.println(cliente1.getNome()); // Imprime "João da Silva"
 ```
 
 Neste exemplo:
+
 - `cliente1` e `cliente2` são variáveis de referência
 - Ambas apontam para o mesmo objeto na memória
 - Alterar o objeto através de `cliente2` também afeta o que vemos através de `cliente1`
@@ -226,9 +227,9 @@ Membros estáticos (com a palavra-chave `static`) pertencem à classe, não aos 
 ```java
 public class ContaCorrente extends Conta {
     private static final BigDecimal TARIFA_MENSAL = new BigDecimal("30.00");
-    
+
     // ...
-    
+
     @Override
     public void calcularTarifaMensal() {
         setSaldo(getSaldo().subtract(TARIFA_MENSAL));
@@ -237,6 +238,7 @@ public class ContaCorrente extends Conta {
 ```
 
 Neste exemplo:
+
 - `TARIFA_MENSAL` é um atributo estático (pertence à classe)
 - Todas as instâncias de `ContaCorrente` compartilham o mesmo valor
 - É uma constante (`final`), então não pode ser alterada
@@ -254,11 +256,11 @@ Atributos devem ser privados, com acesso controlado por métodos:
 ```java
 public class Cliente {
     private String nome; // Atributo privado
-    
+
     public String getNome() { // Acesso público controlado
         return nome;
     }
-    
+
     public void setNome(String nome) {
         this.nome = Objects.requireNonNull(nome, "Nome não pode ser nulo");
     }
@@ -337,7 +339,7 @@ public class Endereco {
     private String cidade;
     private String estado;
     private String cep;
-    
+
     // Construtor, getters, setters, equals, hashCode, toString
 }
 ```
@@ -348,12 +350,12 @@ Depois, modifique a classe `Cliente` para incluir um endereço:
 public class Cliente implements Serializable {
     // Atributos existentes
     private Endereco endereco;
-    
+
     // Métodos para acessar e modificar o endereço
     public Endereco getEndereco() {
         return endereco;
     }
-    
+
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
@@ -386,7 +388,7 @@ cp.sacar(new BigDecimal("500.00"));
 
 // Exibir informações
 System.out.println("Cliente: " + cliente.getNome());
-System.out.println("Endereço: " + cliente.getEndereco().getLogradouro() + ", " + 
+System.out.println("Endereço: " + cliente.getEndereco().getLogradouro() + ", " +
                   cliente.getEndereco().getNumero());
 System.out.println("Saldo: " + cp.getSaldo());
 ```
@@ -401,4 +403,4 @@ Classes e objetos são os blocos fundamentais da programação orientada a objet
 4. Fornecer uma interface clara e intuitiva
 5. Implementar corretamente os métodos fundamentais (equals, hashCode, toString)
 
-No projeto BancoFicticio, vemos esses princípios aplicados nas classes como `Cliente`, `Conta` e suas subclasses, resultando em um código organizado, manutenível e robusto. 
+No projeto BancoFicticio, vemos esses princípios aplicados nas classes como `Cliente`, `Conta` e suas subclasses, resultando em um código organizado, manutenível e robusto.

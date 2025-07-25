@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Contas - Sistema Bancário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Sistema Bancário</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/clientes">Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/contas">Contas</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Lista de Contas</h2>
+            <a href="/nova-conta" class="btn btn-primary">Nova Conta</a>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div th:if="${contas.empty}" class="alert alert-info">
+                    Nenhuma conta cadastrada ainda.
+                </div>
+                <table th:if="${!contas.empty}" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Número</th>
+                            <th>Tipo</th>
+                            <th>Titular</th>
+                            <th>Saldo</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="conta : ${contas}">
+                            <td th:text="${conta.numero}"></td>
+                            <td th:text="${conta.class.simpleName}"></td>
+                            <td th:text="${conta.titular.nome}"></td>
+                            <td th:text="${#numbers.formatCurrency(conta.saldo)}"></td>
+                            <td>
+                                <a th:href="@{'/contas/' + ${conta.numero}}" class="btn btn-sm btn-info">Detalhes</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contas - Sistema Bancário Fictício</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container py-4">
+        <header class="pb-3 mb-4 border-bottom">
+            <div class="d-flex align-items-center text-dark text-decoration-none">
+                <a href="/" class="me-2 text-decoration-none text-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
+                    </svg>
+                </a>
+                <span class="fs-4">Contas Bancárias</span>
+            </div>
+        </header>
+
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="d-flex justify-content-between mb-3">
+                    <h2>Lista de Contas</h2>
+                    <a th:href="@{/nova-conta}" class="btn btn-primary">Nova Conta</a>
+                </div>
+
+                <div class="alert alert-info" th:if="${#lists.isEmpty(contas)}">
+                    Nenhuma conta cadastrada. <a th:href="@{/nova-conta}">Criar uma nova conta</a>.
+                </div>
+
+                <div class="table-responsive" th:if="${not #lists.isEmpty(contas)}">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Número</th>
+                                <th>Tipo</th>
+                                <th>Titular</th>
+                                <th>Saldo</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="conta : ${contas}">
+                                <td th:text="${conta.numero}">CC-001</td>
+                                <td th:text="${conta.class.simpleName}">ContaCorrente</td>
+                                <td th:text="${conta.titular.nome}">Nome do Cliente</td>
+                                <td th:text="${#numbers.formatCurrency(conta.saldo)}">R$ 1.000,00</td>
+                                <td>
+                                    <span th:if="${conta.ativa}" class="badge bg-success">Ativa</span>
+                                    <span th:unless="${conta.ativa}" class="badge bg-danger">Inativa</span>
+                                </td>
+                                <td>
+                                    <a th:href="@{/contas/{numero}(numero=${conta.numero})}" class="btn btn-sm btn-info">Detalhes</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <footer class="pt-3 mt-4 text-muted border-top">
+            © 2025 Sistema Bancário Fictício
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+    <footer class="bg-light text-center p-3 mt-5">
+        <p>Sistema Bancário Fictício &copy; 2025</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

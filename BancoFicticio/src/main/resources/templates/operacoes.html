@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Operações - Sistema Bancário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Sistema Bancário</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/clientes">Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contas">Contas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/operacoes">Operações</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operações - Sistema Bancário Fictício</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container py-4">
+        <header class="pb-3 mb-4 border-bottom">
+            <div class="d-flex align-items-center text-dark text-decoration-none">
+                <a href="/" class="me-2 text-decoration-none text-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
+                    </svg>
+                </a>
+                <span class="fs-4">Operações Bancárias</span>
+            </div>
+        </header>
+
+        <div class="row mb-4 g-4">
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">Operações Básicas</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#depositoModal">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Depósito</h5>
+                                </div>
+                                <p class="mb-1">Realizar depósito em uma conta</p>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#saqueModal">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Saque</h5>
+                                </div>
+                                <p class="mb-1">Realizar saque de uma conta</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title mb-0">Operações Especiais</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#rendimentoModal">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Calcular Rendimento</h5>
+                                </div>
+                                <p class="mb-1">Calcular rendimento de conta poupança</p>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#investimentoModal">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Operações de Investimento</h5>
+                                </div>
+                                <p class="mb-1">Investir ou resgatar valores</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para Depósito -->
+        <div class="modal fade" id="depositoModal" tabindex="-1" aria-labelledby="depositoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="depositoModalLabel">Realizar Depósito</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="depositoForm" action="/api/banco/contas/{numero}/depositar" method="post">
+                            <div class="mb-3">
+                                <label for="numeroContaDeposito" class="form-label">Número da Conta</label>
+                                <input type="text" class="form-control" id="numeroContaDeposito" name="numero" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="valorDeposito" class="form-label">Valor</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">R$</span>
+                                    <input type="number" class="form-control" id="valorDeposito" name="valor" step="0.01" min="0.01" required>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="realizarOperacao('depositoForm')">Depositar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para Saque -->
+        <div class="modal fade" id="saqueModal" tabindex="-1" aria-labelledby="saqueModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="saqueModalLabel">Realizar Saque</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="saqueForm" action="/api/banco/contas/{numero}/sacar" method="post">
+                            <div class="mb-3">
+                                <label for="numeroContaSaque" class="form-label">Número da Conta</label>
+                                <input type="text" class="form-control" id="numeroContaSaque" name="numero" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="valorSaque" class="form-label">Valor</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">R$</span>
+                                    <input type="number" class="form-control" id="valorSaque" name="valor" step="0.01" min="0.01" required>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="realizarOperacao('saqueForm')">Sacar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para Rendimento -->
+        <div class="modal fade" id="rendimentoModal" tabindex="-1" aria-labelledby="rendimentoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="rendimentoModalLabel">Calcular Rendimento</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="rendimentoForm" action="/api/banco/contas/{numero}/calcular-rendimento" method="post">
+                            <div class="mb-3">
+                                <label for="numeroContaRendimento" class="form-label">Número da Conta Poupança</label>
+                                <input type="text" class="form-control" id="numeroContaRendimento" name="numero" required>
+                            </div>
+                            <div class="alert alert-warning">
+                                <small>Atenção: Esta operação calculará o rendimento mensal da conta poupança.</small>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success" onclick="realizarOperacao('rendimentoForm')">Calcular Rendimento</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para Investimento -->
+        <div class="modal fade" id="investimentoModal" tabindex="-1" aria-labelledby="investimentoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="investimentoModalLabel">Operações de Investimento</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="nav nav-tabs" id="investimentoTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="investir-tab" data-bs-toggle="tab" data-bs-target="#investir" type="button" role="tab" aria-controls="investir" aria-selected="true">Investir</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="resgatar-tab" data-bs-toggle="tab" data-bs-target="#resgatar" type="button" role="tab" aria-controls="resgatar" aria-selected="false">Resgatar</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content pt-3" id="investimentoTabContent">
+                            <div class="tab-pane fade show active" id="investir" role="tabpanel" aria-labelledby="investir-tab">
+                                <form id="investirForm" action="/api/banco/contas/{numero}/investir" method="post">
+                                    <div class="mb-3">
+                                        <label for="numeroContaInvestir" class="form-label">Número da Conta de Investimento</label>
+                                        <input type="text" class="form-control" id="numeroContaInvestir" name="numero" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="valorInvestir" class="form-label">Valor</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">R$</span>
+                                            <input type="number" class="form-control" id="valorInvestir" name="valor" step="0.01" min="0.01" required>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="resgatar" role="tabpanel" aria-labelledby="resgatar-tab">
+                                <form id="resgatarForm" action="/api/banco/contas/{numero}/resgatar" method="post">
+                                    <div class="mb-3">
+                                        <label for="numeroContaResgatar" class="form-label">Número da Conta de Investimento</label>
+                                        <input type="text" class="form-control" id="numeroContaResgatar" name="numero" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="valorResgatar" class="form-label">Valor</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">R$</span>
+                                            <input type="number" class="form-control" id="valorResgatar" name="valor" step="0.01" min="0.01" required>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success" id="btnInvestimento" onclick="realizarOperacaoInvestimento()">Investir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="pt-3 mt-4 text-muted border-top">
+            © 2025 Sistema Bancário Fictício
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('investir-tab').addEventListener('click', function() {
+            document.getElementById('btnInvestimento').innerText = 'Investir';
+            document.getElementById('btnInvestimento').onclick = function() { realizarOperacao('investirForm'); };
+        });
+
+        document.getElementById('resgatar-tab').addEventListener('click', function() {
+            document.getElementById('btnInvestimento').innerText = 'Resgatar';
+            document.getElementById('btnInvestimento').onclick = function() { realizarOperacao('resgatarForm'); };
+        });
+
+        function realizarOperacao(formId) {
+            const form = document.getElementById(formId);
+            const formData = new FormData(form);
+            const url = form.action.replace('{numero}', formData.get('numero'));
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(formData)
+            })
+            .then(response => response.text())
+            .then(result => {
+                alert(result);
+                const modal = bootstrap.Modal.getInstance(document.querySelector('.modal.show'));
+                modal.hide();
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Ocorreu um erro ao processar a operação: ' + error);
+            });
+        }
+
+        function realizarOperacaoInvestimento() {
+            const activeTab = document.querySelector('.tab-pane.active');
+            const formId = activeTab.querySelector('form').id;
+            realizarOperacao(formId);
+        }
+    </script>
+</body>
+</html>
+    <div class="container mt-4">
+        <h2 class="mb-4">Operações Bancárias</h2>
+
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5>Depósito</h5>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/api/banco/contas/{numero}/depositar}" method="post">
+                            <div class="mb-3">
+                                <label for="numero-deposito" class="form-label">Número da Conta</label>
+                                <input type="text" class="form-control" id="numero-deposito" name="numero" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="valor-deposito" class="form-label">Valor do Depósito</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">R$</span>
+                                    <input type="number" class="form-control" id="valor-deposito" name="valor" min="0.01" step="0.01" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success">Depositar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-warning text-white">
+                        <h5>Saque</h5>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/api/banco/contas/{numero}/sacar}" method="post">
+                            <div class="mb-3">
+                                <label for="numero-saque" class="form-label">Número da Conta</label>
+                                <input type="text" class="form-control" id="numero-saque" name="numero" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="valor-saque" class="form-label">Valor do Saque</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">R$</span>
+                                    <input type="number" class="form-control" id="valor-saque" name="valor" min="0.01" step="0.01" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-warning">Sacar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5>Rendimento de Poupança</h5>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/api/banco/contas/{numero}/calcular-rendimento}" method="post">
+                            <div class="mb-3">
+                                <label for="numero-rendimento" class="form-label">Número da Conta Poupança</label>
+                                <input type="text" class="form-control" id="numero-rendimento" name="numero" required>
+                            </div>
+                            <button type="submit" class="btn btn-info">Calcular Rendimento</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5>Operações de Investimento</h5>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/api/banco/contas/{numero}/investir}" method="post" class="mb-3">
+                            <div class="mb-3">
+                                <label for="numero-investir" class="form-label">Número da Conta de Investimento</label>
+                                <input type="text" class="form-control" id="numero-investir" name="numero" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="valor-investir" class="form-label">Valor a Investir</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">R$</span>
+                                    <input type="number" class="form-control" id="valor-investir" name="valor" min="0.01" step="0.01" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Investir</button>
+                        </form>
+
+                        <hr>
+
+                        <form th:action="@{/api/banco/contas/{numero}/resgatar}" method="post">
+                            <div class="mb-3">
+                                <label for="numero-resgatar" class="form-label">Número da Conta de Investimento</label>
+                                <input type="text" class="form-control" id="numero-resgatar" name="numero" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="valor-resgatar" class="form-label">Valor a Resgatar</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">R$</span>
+                                    <input type="number" class="form-control" id="valor-resgatar" name="valor" min="0.01" step="0.01" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-secondary">Resgatar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-dark text-white">
+                        <h5>Cálculo de Tarifas</h5>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/api/banco/calcular-tarifas}" method="post">
+                            <p class="text-muted">Esta operação irá calcular e debitar as tarifas mensais de todas as contas.</p>
+                            <button type="submit" class="btn btn-dark">Calcular Tarifas Mensais</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-secondary text-white">
+                        <h5>Cálculo de Impostos</h5>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/api/banco/contas/{numero}/calcular-imposto}" method="get">
+                            <div class="mb-3">
+                                <label for="numero-imposto" class="form-label">Número da Conta</label>
+                                <input type="text" class="form-control" id="numero-imposto" name="numero" required>
+                            </div>
+                            <button type="submit" class="btn btn-secondary">Calcular Imposto</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light text-center p-3 mt-5">
+        <p>Sistema Bancário Fictício &copy; 2025</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

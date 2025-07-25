@@ -17,7 +17,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/"><i class="bi bi-house"></i> Início</a>
+                        <a class="nav-link" href="/"><i class="bi bi-house"></i> Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/clientes"><i class="bi bi-people"></i> Clientes</a>
@@ -48,12 +48,12 @@
 
         <div class="card shadow-sm mb-4">
             <div class="card-header bg-light">
-                <h5 class="mb-0">Informações da Conta</h5>
+                <h5 class="mb-0">Informacoes da Conta</h5>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-3">
-                        <p class="fw-bold mb-1">Número da Conta:</p>
+                        <p class="fw-bold mb-1">Numero da Conta:</p>
                         <p th:text="${conta.numero}"></p>
                     </div>
                     <div class="col-md-3">
@@ -100,13 +100,13 @@
 
         <div class="card shadow-sm">
             <div class="card-header bg-light">
-                <h5 class="mb-0">Operações Disponíveis</h5>
+                <h5 class="mb-0">Operacoes Disponiveis</h5>
             </div>
             <div class="card-body">
                 <div class="row g-3">
                     <div class="col-md-3">
                         <a th:href="@{/transacoes/deposito/{id}(id=${conta.id})}" class="btn btn-success d-block">
-                            <i class="bi bi-piggy-bank"></i> Fazer Depósito
+                            <i class="bi bi-piggy-bank"></i> Fazer Deposito
                         </a>
                     </div>
                     <div class="col-md-3">
@@ -116,7 +116,7 @@
                     </div>
                     <div class="col-md-3">
                         <a th:href="@{/transacoes/transferencia/{id}(id=${conta.id})}" class="btn btn-info d-block text-white">
-                            <i class="bi bi-arrow-left-right"></i> Fazer Transferência
+                            <i class="bi bi-arrow-left-right"></i> Fazer Transferencia
                         </a>
                     </div>
                     <div class="col-md-3">
@@ -132,7 +132,7 @@
 
     <footer class="bg-dark text-white py-4 mt-4">
         <div class="container text-center">
-            <p>&copy; 2025 BancoPro - Sistema Bancário Fictício</p>
+            <p>&copy; 2025 BancoPro - Sistema Bancario Ficticio</p>
         </div>
     </footer>
 

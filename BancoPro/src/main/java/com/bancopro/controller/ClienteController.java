@@ -3,6 +3,8 @@ package com.bancopro.controller;
 import com.bancopro.model.Cliente;
 import com.bancopro.service.ClienteService;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +12,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/clientes")
 public class ClienteController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ClienteController.class);
 
     private final ClienteService clienteService;
 
@@ -23,8 +29,17 @@ public class ClienteController {
 
     @GetMapping
     public String listarClientes(Model model) {
-        model.addAttribute("clientes", clienteService.listarTodos());
-        return "clientes/listar";
+        logger.info("Listando clientes...");
+        try {
+            List<Cliente> clientes = clienteService.listarTodos();
+            logger.info("Encontrados {} clientes", clientes.size());
+            model.addAttribute("clientes", clientes);
+            return "clientes/listar";
+        } catch (Exception e) {
+            logger.error("Erro ao listar clientes: {}", e.getMessage(), e);
+            model.addAttribute("erro", "Erro ao carregar clientes: " + e.getMessage());
+            return "clientes/listar";
+        }
     }
 
     @GetMapping("/novo")
@@ -34,9 +49,9 @@ public class ClienteController {
     }
 
     @PostMapping("/salvar")
-    public String salvarCliente(@Valid @ModelAttribute("cliente") Cliente cliente, 
-                              BindingResult result, 
-                              RedirectAttributes redirectAttributes) {
+    public String salvarCliente(@Valid @ModelAttribute("cliente") Cliente cliente,
+            BindingResult result,
+            RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             return "clientes/form";
         }

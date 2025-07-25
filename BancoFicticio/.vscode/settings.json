@@ -1,0 +1,10 @@
+{
+  "titan.extension.excludedFromBuild": [
+    "\\src\\main\\java\\com\\banco\\controller",
+    "\\target\\classes\\com\\banco\\controller",
+    "\\src\\main\\java\\com\\banco\\controller\\BancoController.java",
+    "\\src\\main\\java\\com\\banco\\controller\\OperacoesController.java",
+    "\\src\\main\\java\\com\\banco\\controller\\WebController.java"
+  ],
+  "java.configuration.updateBuildConfiguration": "interactive"
+}

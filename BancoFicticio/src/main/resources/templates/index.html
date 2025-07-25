@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Banco Fictício - Início</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .container {
+        margin-top: 20px;
+      }
+      .card {
+        margin-bottom: 20px;
+      }
+      .dashboard-card {
+        text-align: center;
+        padding: 20px;
+      }
+      .dashboard-card h3 {
+        margin-bottom: 20px;
+      }
+      .dashboard-card .value {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #0d6efd;
+      }
+    </style>
+  </head>
+  <body>
+    <div th:replace="layout :: nav"></div>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Sistema Bancário Fictício</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Sistema Bancário</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/clientes">Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contas">Contas</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="jumbotron">
+            <h1 class="display-4">Bem-vindo ao Sistema Bancário Fictício</h1>
+            <p class="lead">Um sistema simples para gerenciar clientes, contas e operações bancárias.</p>
+            <hr class="my-4">
+            <p>Escolha uma das opções abaixo para começar:</p>
+            <div class="row mt-4">
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Clientes</h5>
+                            <p class="card-text">Gerenciar cadastro de clientes.</p>
+                            <a href="/clientes" class="btn btn-primary">Acessar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Contas</h5>
+                            <p class="card-text">Gerenciar contas bancárias.</p>
+                            <a href="/contas" class="btn btn-primary">Acessar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Operações</h5>
+                            <p class="card-text">Realizar operações bancárias.</p>
+                            <a href="/operacoes" class="btn btn-primary">Acessar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light text-center p-3 mt-5">
+        <p>Sistema Bancário Fictício &copy; 2025</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+    <div class="container">
+      <h1 class="mb-4">Bem-vindo ao Sistema Bancário</h1>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card dashboard-card">
+            <h3>Total de Clientes</h3>
+            <div class="value" th:text="${#lists.size(clientes)}">0</div>
+            <a th:href="@{/clientes}" class="btn btn-primary mt-3"
+              >Ver Clientes</a
+            >
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card dashboard-card">
+            <h3>Total de Contas</h3>
+            <div class="value" th:text="${#lists.size(contas)}">0</div>
+            <a th:href="@{/contas}" class="btn btn-primary mt-3">Ver Contas</a>
+          </div>
+        </div>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Bancário Fictício</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container py-4">
+        <header class="pb-3 mb-4 border-bottom">
+            <h1 class="fs-4">Sistema Bancário Fictício</h1>
+        </header>
+
+        <div class="p-5 mb-4 bg-light rounded-3">
+            <div class="container-fluid py-5">
+                <h1 class="display-5 fw-bold">Bem-vindo ao Banco Fictício</h1>
+                <p class="col-md-8 fs-4">Sistema de gestão bancária para gerenciar clientes, contas e operações financeiras.</p>
+                <div class="d-flex gap-2">
+                    <a th:href="@{/clientes}" class="btn btn-primary btn-lg">Gerenciar Clientes</a>
+                    <a th:href="@{/contas}" class="btn btn-success btn-lg">Gerenciar Contas</a>
+                    <a th:href="@{/operacoes}" class="btn btn-warning btn-lg">Operações Bancárias</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="h-100 p-5 bg-light border rounded-3">
+                    <h2>Clientes Cadastrados</h2>
+                    <p>Total de clientes: <span th:text="${#lists.size(clientes)}">0</span></p>
+                    <a th:href="@{/novo-cliente}" class="btn btn-outline-primary">Cadastrar Novo Cliente</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="h-100 p-5 bg-light border rounded-3">
+                    <h2>Contas Ativas</h2>
+                    <p>Total de contas: <span th:text="${#lists.size(contas)}">0</span></p>
+                    <a th:href="@{/nova-conta}" class="btn btn-outline-success">Criar Nova Conta</a>
+                </div>
+            </div>
+        </div>
+
+        <footer class="pt-3 mt-4 text-muted border-top">
+            © 2025 Sistema Bancário Fictício
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+        <div class="col-md-4">
+          <div class="card dashboard-card">
+            <h3>Ações Rápidas</h3>
+            <div class="d-grid gap-2">
+              <a th:href="@{/novo-cliente}" class="btn btn-success"
+                >Cadastrar Cliente</a
+              >
+              <a th:href="@{/nova-conta}" class="btn btn-success"
+                >Abrir Conta</a
+              >
+              <button onclick="calcularTarifas()" class="btn btn-warning">
+                Calcular Tarifas
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h5>Últimos Clientes</h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    th:each="cliente : ${#lists.subList(clientes, 0, #lists.size(clientes) < 5 ? #lists.size(clientes) : 5)}"
+                  >
+                    <td th:text="${cliente.nome}">Nome do Cliente</td>
+                    <td th:text="${cliente.cpf}">CPF do Cliente</td>
+                    <td>
+                      <a
+                        th:href="@{/clientes/{cpf}(cpf=${cliente.cpf})}"
+                        class="btn btn-sm btn-info"
+                        >Detalhes</a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h5>Últimas Contas</h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Número</th>
+                    <th>Tipo</th>
+                    <th>Titular</th>
+                    <th>Saldo</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    th:each="conta : ${#lists.subList(contas, 0, #lists.size(contas) < 5 ? #lists.size(contas) : 5)}"
+                  >
+                    <td th:text="${conta.numero}">Número da Conta</td>
+                    <td
+                      th:text="${#strings.substringAfter(conta.class.name, 'Conta')}"
+                    >
+                      Tipo da Conta
+                    </td>
+                    <td th:text="${conta.titular.nome}">Nome do Titular</td>
+                    <td th:text="${'R$ ' + conta.saldo}">Saldo da Conta</td>
+                    <td>
+                      <a
+                        th:href="@{/contas/{numero}(numero=${conta.numero})}"
+                        class="btn btn-sm btn-info"
+                        >Detalhes</a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function calcularTarifas() {
+        fetch("/api/banco/calcular-tarifas", {
+          method: "POST",
+        })
+          .then((response) => {
+            if (response.ok) {
+              alert("Tarifas mensais calculadas com sucesso!");
+              location.reload();
+            } else {
+              alert("Erro ao calcular tarifas!");
+            }
+          })
+          .catch((error) => {
+            console.error("Erro:", error);
+            alert("Erro ao calcular tarifas!");
+          });
+      }
+    </script>
+  </body>
+</html>

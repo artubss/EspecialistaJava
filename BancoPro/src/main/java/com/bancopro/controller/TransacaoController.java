@@ -39,10 +39,10 @@ public class TransacaoController {
     }
 
     @PostMapping("/depositar")
-    public String depositar(@RequestParam Long contaId, 
-                           @RequestParam BigDecimal valor, 
-                           @RequestParam String descricao,
-                           RedirectAttributes redirectAttributes) {
+    public String depositar(@RequestParam Long contaId,
+            @RequestParam BigDecimal valor,
+            @RequestParam String descricao,
+            RedirectAttributes redirectAttributes) {
         try {
             transacaoService.depositar(contaId, valor, descricao);
             redirectAttributes.addFlashAttribute("mensagem", "Depósito realizado com sucesso!");
@@ -61,10 +61,10 @@ public class TransacaoController {
     }
 
     @PostMapping("/sacar")
-    public String sacar(@RequestParam Long contaId, 
-                        @RequestParam BigDecimal valor, 
-                        @RequestParam String descricao,
-                        RedirectAttributes redirectAttributes) {
+    public String sacar(@RequestParam Long contaId,
+            @RequestParam BigDecimal valor,
+            @RequestParam String descricao,
+            RedirectAttributes redirectAttributes) {
         try {
             transacaoService.sacar(contaId, valor, descricao);
             redirectAttributes.addFlashAttribute("mensagem", "Saque realizado com sucesso!");
@@ -83,11 +83,11 @@ public class TransacaoController {
     }
 
     @PostMapping("/transferir")
-    public String transferir(@RequestParam Long contaOrigemId, 
-                            @RequestParam Long contaDestinoId, 
-                            @RequestParam BigDecimal valor, 
-                            @RequestParam String descricao,
-                            RedirectAttributes redirectAttributes) {
+    public String transferir(@RequestParam Long contaOrigemId,
+            @RequestParam Long contaDestinoId,
+            @RequestParam BigDecimal valor,
+            @RequestParam String descricao,
+            RedirectAttributes redirectAttributes) {
         try {
             transacaoService.transferir(contaOrigemId, contaDestinoId, valor, descricao);
             redirectAttributes.addFlashAttribute("mensagem", "Transferência realizada com sucesso!");

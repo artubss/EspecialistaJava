@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BancoPro - Extrato de Conta</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="bi bi-bank"></i> BancoPro</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/"><i class="bi bi-house"></i> Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/clientes"><i class="bi bi-people"></i> Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contas"><i class="bi bi-credit-card"></i> Contas</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="bi bi-list-columns"></i> Extrato de Conta</h2>
+            <div>
+                <a th:href="@{/contas/detalhes/{id}(id=${conta.id})}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Voltar
+                </a>
+            </div>
+        </div>
+
+        <div class="alert alert-success" th:if="${mensagem}" th:text="${mensagem}"></div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Informações da Conta</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="fw-bold mb-1">Número da Conta:</p>
+                        <p th:text="${conta.numero}"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="fw-bold mb-1">Tipo de Conta:</p>
+                        <p th:text="${conta.tipoConta}"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="fw-bold mb-1">Titular:</p>
+                        <p th:text="${conta.cliente.nome}"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="fw-bold mb-1">Saldo Atual:</p>
+                        <p class="text-success fw-bold" th:text="${#numbers.formatCurrency(conta.saldo)}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Operações</h5>
+                <div class="btn-group">
+                    <a th:href="@{/transacoes/deposito/{id}(id=${conta.id})}" class="btn btn-sm btn-success">
+                        <i class="bi bi-piggy-bank"></i> Depositar
+                    </a>
+                    <a th:href="@{/transacoes/saque/{id}(id=${conta.id})}" class="btn btn-sm btn-warning">
+                        <i class="bi bi-cash"></i> Sacar
+                    </a>
+                    <a th:href="@{/transacoes/transferencia/{id}(id=${conta.id})}" class="btn btn-sm btn-info text-white">
+                        <i class="bi bi-arrow-left-right"></i> Transferir
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Histórico de Transações</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Data/Hora</th>
+                                <th>Tipo</th>
+                                <th>Valor</th>
+                                <th>Descrição</th>
+                                <th>Conta Destino</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:if="${transacoes.empty}">
+                                <td colspan="5" class="text-center">Nenhuma transação registrada</td>
+                            </tr>
+                            <tr th:each="transacao : ${transacoes}">
+                                <td th:text="${#temporals.format(transacao.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
+                                <td>
+                                    <span th:if="${transacao.tipo == T(com.bancopro.model.Transacao.TipoTransacao).DEPOSITO}" class="badge bg-success">Depósito</span>
+                                    <span th:if="${transacao.tipo == T(com.bancopro.model.Transacao.TipoTransacao).SAQUE}" class="badge bg-warning text-dark">Saque</span>
+                                    <span th:if="${transacao.tipo == T(com.bancopro.model.Transacao.TipoTransacao).TRANSFERENCIA}" class="badge bg-info text-white">Transferência</span>
+                                    <span th:if="${transacao.tipo == T(com.bancopro.model.Transacao.TipoTransacao).PAGAMENTO}" class="badge bg-danger">Pagamento</span>
+                                </td>
+                                <td th:class="${transacao.tipo == T(com.bancopro.model.Transacao.TipoTransacao).DEPOSITO ? 'text-success fw-bold' : (transacao.tipo == T(com.bancopro.model.Transacao.TipoTransacao).SAQUE || transacao.tipo == T(com.bancopro.model.Transacao.TipoTransacao).TRANSFERENCIA) ? 'text-danger fw-bold' : ''}">
+                                    <span th:if="${transacao.tipo == T(com.bancopro.model.Transacao.TipoTransacao).DEPOSITO}">+</span>
+                                    <span th:if="${transacao.tipo == T(com.bancopro.model.Transacao.TipoTransacao).SAQUE || transacao.tipo == T(com.bancopro.model.Transacao.TipoTransacao).TRANSFERENCIA}">-</span>
+                                    <span th:text="${#numbers.formatCurrency(transacao.valor)}"></span>
+                                </td>
+                                <td th:text="${transacao.descricao}"></td>
+                                <td th:text="${transacao.contaDestino != null ? transacao.contaDestino.numero : '-'}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white py-4 mt-4">
+        <div class="container text-center">
+            <p>&copy; 2025 BancoPro - Sistema Bancário Fictício</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

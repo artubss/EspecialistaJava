@@ -10,6 +10,8 @@ import java.util.Optional;
 
 @Repository
 public interface ContaRepository extends JpaRepository<Conta, Long> {
+
     List<Conta> findByCliente(Cliente cliente);
+
     Optional<Conta> findByNumero(String numero);
 }

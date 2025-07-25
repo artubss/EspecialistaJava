@@ -10,6 +10,8 @@ import java.util.List;
 
 @Repository
 public interface TransacaoRepository extends JpaRepository<Transacao, Long> {
+
     List<Transacao> findByConta(Conta conta);
+
     List<Transacao> findByContaAndDataHoraBetween(Conta conta, LocalDateTime inicio, LocalDateTime fim);
 }

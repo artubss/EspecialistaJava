@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Nova Conta - Sistema Bancário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Sistema Bancário</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/clientes">Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/contas">Contas</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Nova Conta</h2>
+            <a href="/contas" class="btn btn-secondary">Voltar</a>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <ul class="nav nav-tabs" id="tipoContaTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="corrente-tab" data-bs-toggle="tab" data-bs-target="#corrente" type="button" role="tab">Conta Corrente</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="poupanca-tab" data-bs-toggle="tab" data-bs-target="#poupanca" type="button" role="tab">Conta Poupança</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="investimento-tab" data-bs-toggle="tab" data-bs-target="#investimento" type="button" role="tab">Conta Investimento</button>
+                    </li>
+                </ul>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Conta - Sistema Bancário Fictício</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container py-4">
+        <header class="pb-3 mb-4 border-bottom">
+            <div class="d-flex align-items-center text-dark text-decoration-none">
+                <a href="/" class="me-2 text-decoration-none text-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
+                    </svg>
+                </a>
+                <a href="/contas" class="me-2 text-decoration-none text-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                    </svg>
+                </a>
+                <span class="fs-4">Criar Nova Conta</span>
+            </div>
+        </header>
+
+        <div class="row mb-4">
+            <div class="col-md-8 mx-auto">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">Dados da Conta</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info" th:if="${#lists.isEmpty(clientes)}">
+                            Não há clientes cadastrados. <a th:href="@{/novo-cliente}">Cadastrar um novo cliente</a> antes de criar uma conta.
+                        </div>
+
+                        <form id="contaForm" th:if="${not #lists.isEmpty(clientes)}">
+                            <div class="mb-3">
+                                <label for="tipoConta" class="form-label">Tipo de Conta</label>
+                                <select class="form-select" id="tipoConta" name="tipoConta" onchange="mostrarCamposEspecificos()" required>
+                                    <option value="" selected disabled>Selecione o tipo de conta</option>
+                                    <option value="corrente">Conta Corrente</option>
+                                    <option value="poupanca">Conta Poupança</option>
+                                    <option value="investimento">Conta Investimento</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="numero" class="form-label">Número da Conta</label>
+                                <input type="text" class="form-control" id="numero" name="numero" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="cpfCliente" class="form-label">Cliente Titular</label>
+                                <select class="form-select" id="cpfCliente" name="cpfCliente" required>
+                                    <option value="" selected disabled>Selecione o cliente</option>
+                                    <option th:each="cliente : ${clientes}" th:value="${cliente.cpf}" th:text="${cliente.nome + ' - ' + cliente.cpf}">Nome do Cliente - CPF</option>
+                                </select>
+                            </div>
+
+                            <!-- Campos específicos para Conta Corrente -->
+                            <div id="camposContaCorrente" style="display: none;">
+                                <div class="mb-3">
+                                    <label for="limiteChequeEspecial" class="form-label">Limite do Cheque Especial</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">R$</span>
+                                        <input type="number" class="form-control" id="limiteChequeEspecial" name="limiteChequeEspecial" step="0.01" min="0">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Campos específicos para Conta Investimento -->
+                            <div id="camposContaInvestimento" style="display: none;">
+                                <div class="mb-3">
+                                    <label for="tipoInvestimento" class="form-label">Tipo de Investimento</label>
+                                    <select class="form-select" id="tipoInvestimento" name="tipo">
+                                        <option value="" selected disabled>Selecione o tipo de investimento</option>
+                                        <option th:each="tipo : ${tiposInvestimento}" th:value="${tipo}" th:text="${tipo}">RENDA_FIXA</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="button" class="btn btn-primary" onclick="criarConta()">Criar Conta</button>
+                                <a href="/contas" class="btn btn-outline-secondary">Cancelar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="pt-3 mt-4 text-muted border-top">
+            © 2025 Sistema Bancário Fictício
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function mostrarCamposEspecificos() {
+            const tipoConta = document.getElementById('tipoConta').value;
+
+            // Esconder todos os campos específicos
+            document.getElementById('camposContaCorrente').style.display = 'none';
+            document.getElementById('camposContaInvestimento').style.display = 'none';
+
+            // Mostrar campos específicos de acordo com o tipo selecionado
+            if (tipoConta === 'corrente') {
+                document.getElementById('camposContaCorrente').style.display = 'block';
+            } else if (tipoConta === 'investimento') {
+                document.getElementById('camposContaInvestimento').style.display = 'block';
+            }
+        }
+
+        function criarConta() {
+            const form = document.getElementById('contaForm');
+            const tipoConta = document.getElementById('tipoConta').value;
+            const numero = document.getElementById('numero').value;
+            const cpfCliente = document.getElementById('cpfCliente').value;
+
+            if (!tipoConta || !numero || !cpfCliente) {
+                alert('Preencha os campos obrigatórios!');
+                return;
+            }
+
+            let url = '';
+            let params = new URLSearchParams();
+            params.append('numero', numero);
+            params.append('cpfCliente', cpfCliente);
+
+            if (tipoConta === 'corrente') {
+                url = '/api/banco/contas/corrente';
+                const limiteChequeEspecial = document.getElementById('limiteChequeEspecial').value;
+                if (limiteChequeEspecial) {
+                    params.append('limiteChequeEspecial', limiteChequeEspecial);
+                }
+            } else if (tipoConta === 'poupanca') {
+                url = '/api/banco/contas/poupanca';
+            } else if (tipoConta === 'investimento') {
+                url = '/api/banco/contas/investimento';
+                const tipoInvestimento = document.getElementById('tipoInvestimento').value;
+                if (!tipoInvestimento) {
+                    alert('Selecione o tipo de investimento!');
+                    return;
+                }
+                params.append('tipo', tipoInvestimento);
+            }
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: params
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Erro ao criar conta');
+            })
+            .then(data => {
+                alert('Conta criada com sucesso!');
+                window.location.href = '/contas/' + data.numero;
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Ocorreu um erro ao criar a conta: ' + error.message);
+            });
+        }
+    </script>
+</body>
+</html>
+                <div class="tab-content p-3 border border-top-0 rounded-bottom" id="tipoContaTabContent">
+                    <!-- Conta Corrente -->
+                    <div class="tab-pane fade show active" id="corrente" role="tabpanel">
+                        <form th:action="@{/api/banco/contas/corrente}" method="post">
+                            <div class="mb-3">
+                                <label for="numero-cc" class="form-label">Número da Conta</label>
+                                <input type="text" class="form-control" id="numero-cc" name="numero" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="cpfCliente-cc" class="form-label">Cliente</label>
+                                <select class="form-select" id="cpfCliente-cc" name="cpfCliente" required>
+                                    <option value="" selected disabled>Selecione um cliente</option>
+                                    <option th:each="cliente : ${clientes}" th:value="${cliente.cpf}" th:text="${cliente.nome + ' (' + cliente.cpf + ')'}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="limiteChequeEspecial" class="form-label">Limite Cheque Especial</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">R$</span>
+                                    <input type="number" class="form-control" id="limiteChequeEspecial" name="limiteChequeEspecial" min="0" step="0.01" value="0.00">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Criar Conta Corrente</button>
+                        </form>
+                    </div>
+
+                    <!-- Conta Poupança -->
+                    <div class="tab-pane fade" id="poupanca" role="tabpanel">
+                        <form th:action="@{/api/banco/contas/poupanca}" method="post">
+                            <div class="mb-3">
+                                <label for="numero-cp" class="form-label">Número da Conta</label>
+                                <input type="text" class="form-control" id="numero-cp" name="numero" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="cpfCliente-cp" class="form-label">Cliente</label>
+                                <select class="form-select" id="cpfCliente-cp" name="cpfCliente" required>
+                                    <option value="" selected disabled>Selecione um cliente</option>
+                                    <option th:each="cliente : ${clientes}" th:value="${cliente.cpf}" th:text="${cliente.nome + ' (' + cliente.cpf + ')'}"></option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Criar Conta Poupança</button>
+                        </form>
+                    </div>
+
+                    <!-- Conta Investimento -->
+                    <div class="tab-pane fade" id="investimento" role="tabpanel">
+                        <form th:action="@{/api/banco/contas/investimento}" method="post">
+                            <div class="mb-3">
+                                <label for="numero-ci" class="form-label">Número da Conta</label>
+                                <input type="text" class="form-control" id="numero-ci" name="numero" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="cpfCliente-ci" class="form-label">Cliente</label>
+                                <select class="form-select" id="cpfCliente-ci" name="cpfCliente" required>
+                                    <option value="" selected disabled>Selecione um cliente</option>
+                                    <option th:each="cliente : ${clientes}" th:value="${cliente.cpf}" th:text="${cliente.nome + ' (' + cliente.cpf + ')'}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="tipo" class="form-label">Tipo de Investimento</label>
+                                <select class="form-select" id="tipo" name="tipo" required>
+                                    <option value="" selected disabled>Selecione um tipo</option>
+                                    <option th:each="tipo : ${tiposInvestimento}" th:value="${tipo}" th:text="${tipo}"></option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Criar Conta Investimento</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-light text-center p-3 mt-5">
+        <p>Sistema Bancário Fictício &copy; 2025</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

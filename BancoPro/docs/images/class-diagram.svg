@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1000" height="1100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <style>
+    text { font-family: Arial, sans-serif; }
+    .title { font-size: 24px; font-weight: bold; }
+    .class-title { font-size: 16px; font-weight: bold; }
+    .class-subtitle { font-size: 14px; font-style: italic; }
+    .attribute { font-size: 12px; }
+    .method { font-size: 12px; }
+    .box { stroke-width: 2px; }
+    .class-box { fill: #ecf0f1; stroke: #34495e; }
+    .class-header { stroke: #34495e; }
+    .relation { stroke: #34495e; stroke-width: 1.5px; fill: none; marker-end: url(#arrowhead); }
+    .inheritance { stroke: #34495e; stroke-width: 1.5px; fill: none; marker-end: url(#inheritance); }
+    .implementation { stroke: #34495e; stroke-width: 1.5px; fill: none; stroke-dasharray: 5,3; marker-end: url(#arrowhead); }
+    .controller { fill: #3498db; }
+    .service { fill: #2ecc71; }
+    .repository { fill: #9b59b6; }
+    .model { fill: #e74c3c; }
+  </style>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" />
+    </marker>
+    <marker id="inheritance" markerWidth="12" markerHeight="10" refX="12" refY="5" orient="auto">
+      <polygon points="0 0, 12 5, 0 10" fill="white" stroke="#34495e" stroke-width="1.5" />
+    </marker>
+    <marker id="diamond" markerWidth="12" markerHeight="12" refX="6" refY="6" orient="auto">
+      <polygon points="6 0, 12 6, 6 12, 0 6" fill="white" stroke="#34495e" stroke-width="1" />
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="2" dy="3" stdDeviation="2" flood-opacity="0.2" />
+    </filter>
+    <linearGradient id="header-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2c3e50" stop-opacity="1" />
+      <stop offset="100%" stop-color="#34495e" stop-opacity="1" />
+    </linearGradient>
+    <linearGradient id="controller-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3498db" stop-opacity="1" />
+      <stop offset="100%" stop-color="#2980b9" stop-opacity="1" />
+    </linearGradient>
+    <linearGradient id="service-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2ecc71" stop-opacity="1" />
+      <stop offset="100%" stop-color="#27ae60" stop-opacity="1" />
+    </linearGradient>
+    <linearGradient id="repository-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#9b59b6" stop-opacity="1" />
+      <stop offset="100%" stop-color="#8e44ad" stop-opacity="1" />
+    </linearGradient>
+    <linearGradient id="model-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e74c3c" stop-opacity="1" />
+      <stop offset="100%" stop-color="#c0392b" stop-opacity="1" />
+    </linearGradient>
+    <linearGradient id="enum-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f39c12" stop-opacity="1" />
+      <stop offset="100%" stop-color="#d35400" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+
+  <text x="500" y="40" text-anchor="middle" class="title">Diagrama de Classes BancoPro</text>
+
+  <!-- Model Classes -->
+  <rect x="40" y="80" width="240" height="30" rx="5" ry="5" class="box class-header model" />
+  <text x="160" y="100" text-anchor="middle" class="class-title">Cliente</text>
+
+  <rect x="40" y="110" width="240" height="160" rx="0" ry="0" class="box class-box" />
+  <line x1="40" y1="150" x2="280" y2="150" stroke="#34495e" stroke-width="1" />
+  <line x1="40" y1="210" x2="280" y2="210" stroke="#34495e" stroke-width="1" />
+
+  <text x="50" y="130" class="attribute">- id: Long</text>
+  <text x="50" y="145" class="attribute">- nome: String</text>
+  <text x="50" y="160" class="attribute">- cpf: String</text>
+  <text x="50" y="175" class="attribute">- email: String</text>
+  <text x="50" y="190" class="attribute">- telefone: String</text>
+  <text x="50" y="205" class="attribute">- contas: List&lt;Conta&gt;</text>
+
+  <text x="50" y="225" class="method">+ getId(): Long</text>
+  <text x="50" y="240" class="method">+ getNome(): String</text>
+  <text x="50" y="255" class="method">+ getCpf(): String</text>
+  <text x="50" y="270" class="method">+ getContas(): List&lt;Conta&gt;</text>
+
+  <rect x="380" y="80" width="240" height="30" rx="5" ry="5" class="box class-header model" />
+  <text x="500" y="100" text-anchor="middle" class="class-title">Conta</text>
+
+  <rect x="380" y="110" width="240" height="180" rx="0" ry="0" class="box class-box" />
+  <line x1="380" y1="170" x2="620" y2="170" stroke="#34495e" stroke-width="1" />
+  <line x1="380" y1="230" x2="620" y2="230" stroke="#34495e" stroke-width="1" />
+
+  <text x="390" y="130" class="attribute">- id: Long</text>
+  <text x="390" y="145" class="attribute">- numero: String</text>
+  <text x="390" y="160" class="attribute">- saldo: BigDecimal</text>
+
+  <text x="390" y="185" class="attribute">- tipoConta: TipoConta</text>
+  <text x="390" y="200" class="attribute">- dataCriacao: LocalDateTime</text>
+  <text x="390" y="215" class="attribute">- cliente: Cliente</text>
+  <text x="390" y="230" class="attribute">- transacoes: List&lt;Transacao&gt;</text>
+
+  <text x="390" y="250" class="method">+ getId(): Long</text>
+  <text x="390" y="265" class="method">+ getNumero(): String</text>
+  <text x="390" y="280" class="method">+ getSaldo(): BigDecimal</text>
+  <text x="390" y="295" class="method">+ depositar(BigDecimal): void</text>
+  <text x="390" y="310" class="method">+ sacar(BigDecimal): void</text>
+  <text x="390" y="325" class="method">+ getCliente(): Cliente</text>
+
+  <rect x="720" y="80" width="240" height="30" rx="5" ry="5" class="box class-header model" />
+  <text x="840" y="100" text-anchor="middle" class="class-title">Transacao</text>
+
+  <rect x="720" y="110" width="240" height="180" rx="0" ry="0" class="box class-box" />
+  <line x1="720" y1="170" x2="960" y2="170" stroke="#34495e" stroke-width="1" />
+  <line x1="720" y1="230" x2="960" y2="230" stroke="#34495e" stroke-width="1" />
+
+  <text x="730" y="130" class="attribute">- id: Long</text>
+  <text x="730" y="145" class="attribute">- valor: BigDecimal</text>
+  <text x="730" y="160" class="attribute">- descricao: String</text>
+
+  <text x="730" y="185" class="attribute">- tipo: TipoTransacao</text>
+  <text x="730" y="200" class="attribute">- dataHora: LocalDateTime</text>
+  <text x="730" y="215" class="attribute">- conta: Conta</text>
+  <text x="730" y="230" class="attribute">- contaDestino: Conta</text>
+
+  <text x="730" y="250" class="method">+ getId(): Long</text>
+  <text x="730" y="265" class="method">+ getValor(): BigDecimal</text>
+  <text x="730" y="280" class="method">+ getConta(): Conta</text>
+  <text x="730" y="295" class="method">+ getTipo(): TipoTransacao</text>
+  <text x="730" y="310" class="method">+ getContaDestino(): Conta</text>
+
+  <!-- Enum Classes -->
+  <rect x="40" y="350" width="240" height="30" rx="5" ry="5" class="box class-header" fill="#f39c12" />
+  <text x="160" y="370" text-anchor="middle" class="class-title">TipoConta</text>
+
+  <rect x="40" y="380" width="240" height="100" rx="0" ry="0" class="box class-box" />
+  <line x1="40" y1="410" x2="280" y2="410" stroke="#34495e" stroke-width="1" />
+
+  <text x="160" y="400" text-anchor="middle" class="class-subtitle">&lt;&lt;enumeration&gt;&gt;</text>
+
+  <text x="50" y="430" class="attribute">CORRENTE</text>
+  <text x="50" y="445" class="attribute">POUPANCA</text>
+  <text x="50" y="460" class="attribute">SALARIO</text>
+  <text x="50" y="475" class="attribute">INVESTIMENTO</text>
+
+  <rect x="40" y="500" width="240" height="30" rx="5" ry="5" class="box class-header" fill="#f39c12" />
+  <text x="160" y="520" text-anchor="middle" class="class-title">TipoTransacao</text>
+
+  <rect x="40" y="530" width="240" height="100" rx="0" ry="0" class="box class-box" />
+  <line x1="40" y1="560" x2="280" y2="560" stroke="#34495e" stroke-width="1" />
+
+  <text x="160" y="550" text-anchor="middle" class="class-subtitle">&lt;&lt;enumeration&gt;&gt;</text>
+
+  <text x="50" y="580" class="attribute">DEPOSITO</text>
+  <text x="50" y="595" class="attribute">SAQUE</text>
+  <text x="50" y="610" class="attribute">TRANSFERENCIA</text>
+  <text x="50" y="625" class="attribute">PAGAMENTO</text>
+
+  <!-- Repository Interfaces -->
+  <rect x="380" y="350" width="240" height="30" rx="5" ry="5" class="box class-header repository" />
+  <text x="500" y="370" text-anchor="middle" class="class-title">ClienteRepository</text>
+
+  <rect x="380" y="380" width="240" height="80" rx="0" ry="0" class="box class-box" />
+  <line x1="380" y1="410" x2="620" y2="410" stroke="#34495e" stroke-width="1" />
+
+  <text x="500" y="400" text-anchor="middle" class="class-subtitle">&lt;&lt;interface&gt;&gt;</text>
+
+  <text x="390" y="430" class="method">+ findByCpf(String): Optional&lt;Cliente&gt;</text>
+  <text x="390" y="445" class="method">+ existsByCpf(String): boolean</text>
+
+  <rect x="380" y="450" width="240" height="30" rx="5" ry="5" class="box class-header repository" />
+  <text x="500" y="470" text-anchor="middle" class="class-title">ContaRepository</text>
+
+  <rect x="380" y="480" width="240" height="80" rx="0" ry="0" class="box class-box" />
+  <line x1="380" y1="510" x2="620" y2="510" stroke="#34495e" stroke-width="1" />
+
+  <text x="500" y="500" text-anchor="middle" class="class-subtitle">&lt;&lt;interface&gt;&gt;</text>
+
+  <text x="390" y="530" class="method">+ findByNumero(String): Optional&lt;Conta&gt;</text>
+  <text x="390" y="545" class="method">+ findByCliente(Cliente): List&lt;Conta&gt;</text>
+
+  <rect x="380" y="550" width="240" height="30" rx="5" ry="5" class="box class-header repository" />
+  <text x="500" y="570" text-anchor="middle" class="class-title">TransacaoRepository</text>
+
+  <rect x="380" y="580" width="240" height="80" rx="0" ry="0" class="box class-box" />
+  <line x1="380" y1="610" x2="620" y2="610" stroke="#34495e" stroke-width="1" />
+
+  <text x="500" y="600" text-anchor="middle" class="class-subtitle">&lt;&lt;interface&gt;&gt;</text>
+
+  <text x="390" y="630" class="method">+ findByConta(Conta): List&lt;Transacao&gt;</text>
+  <text x="390" y="645" class="method">+ findByContaDestino(Conta): List&lt;Transacao&gt;</text>
+
+  <!-- Service Classes -->
+  <rect x="720" y="350" width="240" height="30" rx="5" ry="5" class="box class-header service" />
+  <text x="840" y="370" text-anchor="middle" class="class-title">ClienteService</text>
+
+  <rect x="720" y="380" width="240" height="120" rx="0" ry="0" class="box class-box" />
+  <line x1="720" y1="410" x2="960" y2="410" stroke="#34495e" stroke-width="1" />
+
+  <text x="730" y="400" class="attribute">- clienteRepository: ClienteRepository</text>
+
+  <text x="730" y="430" class="method">+ listarClientes(): List&lt;Cliente&gt;</text>
+  <text x="730" y="445" class="method">+ buscarPorId(Long): Cliente</text>
+  <text x="730" y="460" class="method">+ salvar(Cliente): Cliente</text>
+  <text x="730" y="475" class="method">+ excluir(Long): void</text>
+  <text x="730" y="490" class="method">+ buscarPorCpf(String): Cliente</text>
+
+  <rect x="720" y="520" width="240" height="30" rx="5" ry="5" class="box class-header service" />
+  <text x="840" y="540" text-anchor="middle" class="class-title">ContaService</text>
+
+  <rect x="720" y="550" width="240" height="120" rx="0" ry="0" class="box class-box" />
+  <line x1="720" y1="580" x2="960" y2="580" stroke="#34495e" stroke-width="1" />
+
+  <text x="730" y="570" class="attribute">- contaRepository: ContaRepository</text>
+
+  <text x="730" y="600" class="method">+ listarContas(): List&lt;Conta&gt;</text>
+  <text x="730" y="615" class="method">+ buscarPorId(Long): Conta</text>
+  <text x="730" y="630" class="method">+ criarConta(...): Conta</text>
+  <text x="730" y="645" class="method">+ encerrarConta(Long): void</text>
+  <text x="730" y="660" class="method">+ listarContasDoCliente(Cliente): List&lt;Conta&gt;</text>
+
+  <rect x="720" y="690" width="240" height="30" rx="5" ry="5" class="box class-header service" />
+  <text x="840" y="710" text-anchor="middle" class="class-title">TransacaoService</text>
+
+  <rect x="720" y="720" width="240" height="120" rx="0" ry="0" class="box class-box" />
+  <line x1="720" y1="750" x2="960" y2="750" stroke="#34495e" stroke-width="1" />
+
+  <text x="730" y="740" class="attribute">- transacaoRepository: TransacaoRepository</text>
+  <text x="730" y="755" class="attribute">- contaService: ContaService</text>
+
+  <text x="730" y="770" class="method">+ listarTransacoesPorConta(Long): List&lt;Transacao&gt;</text>
+  <text x="730" y="785" class="method">+ depositar(Long, BigDecimal, String): Transacao</text>
+  <text x="730" y="800" class="method">+ sacar(Long, BigDecimal, String): Transacao</text>
+  <text x="730" y="815" class="method">+ transferir(Long, Long, BigDecimal, String): Transacao</text>
+
+  <!-- Controller Classes -->
+  <rect x="40" y="650" width="240" height="30" rx="5" ry="5" class="box class-header controller" />
+  <text x="160" y="670" text-anchor="middle" class="class-title">ClienteController</text>
+
+  <rect x="40" y="680" width="240" height="120" rx="0" ry="0" class="box class-box" />
+  <line x1="40" y1="710" x2="280" y2="710" stroke="#34495e" stroke-width="1" />
+
+  <text x="50" y="700" class="attribute">- clienteService: ClienteService</text>
+
+  <text x="50" y="730" class="method">+ listarClientes(Model): String</text>
+  <text x="50" y="745" class="method">+ novoClienteForm(Model): String</text>
+  <text x="50" y="760" class="method">+ salvarCliente(...): String</text>
+  <text x="50" y="775" class="method">+ excluirCliente(...): String</text>
+
+  <rect x="380" y="650" width="240" height="30" rx="5" ry="5" class="box class-header controller" />
+  <text x="500" y="670" text-anchor="middle" class="class-title">ContaController</text>
+
+  <rect x="380" y="680" width="240" height="120" rx="0" ry="0" class="box class-box" />
+  <line x1="380" y1="720" x2="620" y2="720" stroke="#34495e" stroke-width="1" />
+
+  <text x="390" y="700" class="attribute">- contaService: ContaService</text>
+  <text x="390" y="715" class="attribute">- clienteService: ClienteService</text>
+
+  <text x="390" y="740" class="method">+ listarContas(Model): String</text>
+  <text x="390" y="755" class="method">+ novaContaForm(...): String</text>
+  <text x="390" y="770" class="method">+ criarConta(...): String</text>
+  <text x="390" y="785" class="method">+ encerrarConta(...): String</text>
+
+  <rect x="40" y="820" width="240" height="30" rx="5" ry="5" class="box class-header controller" />
+  <text x="160" y="840" text-anchor="middle" class="class-title">TransacaoController</text>
+
+  <rect x="40" y="850" width="240" height="150" rx="0" ry="0" class="box class-box" />
+  <line x1="40" y1="890" x2="280" y2="890" stroke="#34495e" stroke-width="1" />
+
+  <text x="50" y="870" class="attribute">- transacaoService: TransacaoService</text>
+  <text x="50" y="885" class="attribute">- contaService: ContaService</text>
+
+  <text x="50" y="910" class="method">+ depositoForm(...): String</text>
+  <text x="50" y="925" class="method">+ depositar(...): String</text>
+  <text x="50" y="940" class="method">+ saqueForm(...): String</text>
+  <text x="50" y="955" class="method">+ sacar(...): String</text>
+  <text x="50" y="970" class="method">+ transferenciaForm(...): String</text>
+  <text x="50" y="985" class="method">+ transferir(...): String</text>
+
+  <!-- Relationships -->
+  <!-- Cliente - Conta -->
+  <path d="M 280 160 L 380 160" stroke="#333" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+  <text x="300" y="150" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333">1</text>
+  <text x="360" y="150" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333">*</text>
+
+  <!-- Conta - Transacao -->
+  <path d="M 620 160 L 720 160" stroke="#333" stroke-width="1.5" fill="none" marker-end="url(#arrow)" />
+  <text x="640" y="150" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333">1</text>
+  <text x="700" y="150" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#333">*</text>
+
+  <!-- Conta - TipoConta -->
+  <path d="M 380 190 C 330 190 330 365 280 365" stroke="#333" stroke-width="1" stroke-dasharray="4,2" fill="none" marker-end="url(#arrow)" />
+
+  <!-- Transacao - TipoTransacao -->
+  <path d="M 720 190 C 670 190 670 515 280 515" stroke="#333" stroke-width="1" stroke-dasharray="4,2" fill="none" marker-end="url(#arrow)" />
+
+  <!-- Repositories para Modelo -->
+  <path d="M 380 395 L 280 160" stroke="#333" stroke-width="1" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 380 495 L 500 290" stroke="#333" stroke-width="1" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 380 595 L 720 190" stroke="#333" stroke-width="1" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow)" />
+
+  <!-- Services para Repositories -->
+  <path d="M 720 395 L 620 395" stroke="#333" stroke-width="1" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 720 565 L 620 495" stroke="#333" stroke-width="1" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 720 735 L 620 595" stroke="#333" stroke-width="1" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow)" />
+
+  <!-- Controllers para Services -->
+  <path d="M 280 695 L 720 395" stroke="#333" stroke-width="1" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 620 695 L 720 565" stroke="#333" stroke-width="1" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 280 845 L 840 820" stroke="#333" stroke-width="1" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow)" />
+
+  <!-- Legenda -->
+  <rect x="350" y="1020" width="300" height="60" rx="5" ry="5" fill="#f5f5f5" stroke="#ccc" />
+  <text x="400" y="1040" font-family="Arial, sans-serif" font-size="12" fill="#333">——— Associação</text>
+  <text x="550" y="1040" font-family="Arial, sans-serif" font-size="12" fill="#333">- - - → Dependência</text>
+  <text x="400" y="1060" font-family="Arial, sans-serif" font-size="12" fill="#333">1 / * Cardinalidade</text>
+  <text x="550" y="1060" font-family="Arial, sans-serif" font-size="12" fill="#333">◊——→ Composição</text>
+</svg>

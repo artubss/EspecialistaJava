@@ -1,36 +1,5 @@
 package com.bancopro.service;
-package com.bancopro.service;
 
-import com.bancopro.model.Conta;
-import com.bancopro.repository.ContaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-
-@Service
-public class ContaService {
-
-    private final ContaRepository contaRepository;
-
-    @Autowired
-    public ContaService(ContaRepository contaRepository) {
-        this.contaRepository = contaRepository;
-    }
-
-    public Conta buscarPorId(Long id) {
-        return contaRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Conta não encontrada com id " + id));
-    }
-
-    public List<Conta> listarTodas() {
-        return contaRepository.findAll();
-    }
-
-    public Conta salvar(Conta conta) {
-        return contaRepository.save(conta);
-    }
-}
 import com.bancopro.model.Cliente;
 import com.bancopro.model.Conta;
 import com.bancopro.repository.ContaRepository;
