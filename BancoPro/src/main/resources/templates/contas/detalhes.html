@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BancoPro - Detalhes da Conta</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="bi bi-bank"></i> BancoPro</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/"><i class="bi bi-house"></i> Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/clientes"><i class="bi bi-people"></i> Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/contas"><i class="bi bi-credit-card"></i> Contas</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="bi bi-credit-card"></i> Detalhes da Conta</h2>
+            <div>
+                <a th:href="@{/contas/cliente/{id}(id=${conta.cliente.id})}" class="btn btn-secondary me-2">
+                    <i class="bi bi-arrow-left"></i> Voltar
+                </a>
+                <a th:href="@{/transacoes/conta/{id}(id=${conta.id})}" class="btn btn-primary">
+                    <i class="bi bi-list"></i> Ver Extrato
+                </a>
+            </div>
+        </div>
+
+        <div class="alert alert-success" th:if="${mensagem}" th:text="${mensagem}"></div>
+        <div class="alert alert-danger" th:if="${erro}" th:text="${erro}"></div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Informações da Conta</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="fw-bold mb-1">Número da Conta:</p>
+                        <p th:text="${conta.numero}"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="fw-bold mb-1">Tipo de Conta:</p>
+                        <p th:text="${conta.tipoConta}"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="fw-bold mb-1">Saldo Atual:</p>
+                        <p class="text-success fw-bold" th:text="${#numbers.formatCurrency(conta.saldo)}"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="fw-bold mb-1">Data de Abertura:</p>
+                        <p th:text="${#temporals.format(conta.dataCriacao, 'dd/MM/yyyy HH:mm')}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Dados do Titular</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="fw-bold mb-1">Nome:</p>
+                        <p th:text="${conta.cliente.nome}"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="fw-bold mb-1">CPF:</p>
+                        <p th:text="${conta.cliente.cpf}"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="fw-bold mb-1">Email:</p>
+                        <p th:text="${conta.cliente.email}"></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="fw-bold mb-1">Telefone:</p>
+                        <p th:text="${conta.cliente.telefone}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Operações Disponíveis</h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <a th:href="@{/transacoes/deposito/{id}(id=${conta.id})}" class="btn btn-success d-block">
+                            <i class="bi bi-piggy-bank"></i> Fazer Depósito
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a th:href="@{/transacoes/saque/{id}(id=${conta.id})}" class="btn btn-warning d-block">
+                            <i class="bi bi-cash"></i> Fazer Saque
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a th:href="@{/transacoes/transferencia/{id}(id=${conta.id})}" class="btn btn-info d-block text-white">
+                            <i class="bi bi-arrow-left-right"></i> Fazer Transferência
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a th:href="@{/contas/encerrar/{id}(id=${conta.id})}" class="btn btn-danger d-block"
+                           onclick="return confirm('Tem certeza que deseja encerrar esta conta? O saldo deve ser zero.')">
+                            <i class="bi bi-x-circle"></i> Encerrar Conta
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white py-4 mt-4">
+        <div class="container text-center">
+            <p>&copy; 2025 BancoPro - Sistema Bancário Fictício</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
