@@ -1,4 +1,3 @@
-# BancoPro - Sistema Bancário
 # BancoPro - Sistema de Gerenciamento Bancário
 
 <p align="center">
@@ -11,8 +10,8 @@ O BancoPro é um sistema de gerenciamento bancário desenvolvido com Spring Boot
 
 ## 🚀 Tecnologias Utilizadas
 
-- **Java 21**
-- **Spring Boot 3.5.4**
+- **Java 17**
+- **Spring Boot 3.1.5**
 - **Spring Data JPA**
 - **Hibernate**
 - **Thymeleaf**
@@ -65,11 +64,13 @@ O sistema é composto por três entidades principais:
 ### Principais Operações
 
 1. **Cadastro e Gerenciamento de Clientes**
+
    - Cadastro de novos clientes com validação de CPF
    - Edição de informações de clientes
    - Exclusão de clientes (apenas se não possuírem contas ativas)
 
 2. **Gerenciamento de Contas**
+
    - Criação de contas de diferentes tipos (Corrente, Poupança, Salário, Investimento)
    - Consulta de saldo e extrato
    - Encerramento de contas
@@ -90,6 +91,7 @@ O sistema é composto por três entidades principais:
 ## 🌐 Endpoints da API
 
 ### Clientes
+
 - `GET /clientes` - Lista todos os clientes
 - `GET /clientes/novo` - Formulário para novo cliente
 - `POST /clientes/salvar` - Salva um cliente
@@ -97,6 +99,7 @@ O sistema é composto por três entidades principais:
 - `GET /clientes/excluir/{id}` - Remove um cliente
 
 ### Contas
+
 - `GET /contas` - Lista todas as contas
 - `GET /contas/cliente/{clienteId}` - Lista contas de um cliente
 - `GET /contas/nova/{clienteId}` - Formulário para nova conta
@@ -105,6 +108,7 @@ O sistema é composto por três entidades principais:
 - `GET /contas/encerrar/{id}` - Encerra uma conta
 
 ### Transações
+
 - `GET /transacoes/conta/{contaId}` - Lista transações de uma conta
 - `GET /transacoes/deposito/{contaId}` - Formulário de depósito
 - `POST /transacoes/depositar` - Realiza um depósito
@@ -119,27 +123,41 @@ O sistema é composto por três entidades principais:
   <img src="docs/images/class-diagram.svg" alt="Diagrama de Classes" width="700"/>
 </p>
 
+## 🎨 Documentação Visual
+
+Todos os diagramas SVG incluídos neste projeto foram otimizados com fundo branco para melhor visualização em diferentes contextos (GitHub, documentação, apresentações). Os diagramas incluem:
+
+- **Logo do BancoPro**: Identidade visual do sistema
+- **Diagrama de Arquitetura**: Estrutura em camadas MVC
+- **Modelo de Dados**: Entidades e relacionamentos
+- **Fluxo de Operações**: Processos do sistema
+- **Diagrama de Classes**: Estrutura das classes Java
+
 ## ⚙️ Como Executar o Projeto
 
 ### Pré-requisitos
+
 - Java 21 ou superior
 - Maven
 
 ### Passos para Execução
 
 1. Clone o repositório
+
    ```bash
    git clone https://github.com/seu-usuario/bancopro.git
    cd bancopro
    ```
 
 2. Compile e execute o projeto
+
    ```bash
    mvn clean install
    mvn spring-boot:run
    ```
 
 3. Acesse a aplicação
+
    ```
    http://localhost:8081
    ```
@@ -148,8 +166,8 @@ O sistema é composto por três entidades principais:
    ```
    http://localhost:8081/h2-console
    ```
-   - JDBC URL: jdbc:h2:mem:bancoprodb
-   - Usuário: sa
+   - JDBC URL: `jdbc:h2:mem:bancoprodb`
+   - Usuário: `sa`
    - Senha: (vazio)
 
 ## 🧪 Testes
@@ -193,69 +211,3 @@ Desenvolvido por [Seu Nome](https://github.com/seu-usuario)
     <img src="https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=Linkedin&logoColor=white" alt="LinkedIn"/>
   </a>
 </p>
-Um sistema bancário fictício desenvolvido com Java Spring Boot, demonstrando boas práticas de desenvolvimento e padrões de projeto.
-
-## Tecnologias Utilizadas
-
-- Java 21
-- Spring Boot 3.5.4
-- Spring Data JPA
-- Thymeleaf
-- H2 Database (banco de dados em memória)
-- Bootstrap 5
-- Maven
-
-## Funcionalidades
-
-- Cadastro e gerenciamento de clientes
-- Criação e gerenciamento de contas bancárias
-- Diferentes tipos de contas (Corrente, Poupança, Salário, Investimento)
-- Operações bancárias:
-  - Depósito
-  - Saque
-  - Transferência entre contas
-- Extrato de transações
-
-## Arquitetura
-
-O sistema segue uma arquitetura em camadas:
-
-- **Modelo (Model)**: Entidades JPA representando as tabelas do banco de dados
-- **Repositório (Repository)**: Interfaces de acesso a dados com Spring Data JPA
-- **Serviço (Service)**: Regras de negócio e lógica da aplicação
-- **Controlador (Controller)**: Mapeamento de URLs e interação com o usuário
-- **Visualização (View)**: Templates Thymeleaf para a interface
-
-## Conceitos Aplicados
-
-- Orientação a Objetos
-- Encapsulamento
-- Herança e Polimorfismo
-- Java Beans
-- Stream API
-- Componentização
-- Injeção de Dependências
-- Mapeamento Objeto-Relacional (ORM)
-- Tratamento de exceções
-
-## Como Executar
-
-1. Certifique-se de ter o Java 21 instalado
-2. Clone o repositório
-3. Navegue até a pasta do projeto
-4. Execute: `./mvnw spring-boot:run`
-5. Acesse: `http://localhost:8080`
-
-## Dados de Exemplo
-
-O sistema é inicializado com alguns dados de exemplo:
-
-- Três clientes com suas respectivas contas
-- Transações iniciais demonstrativas
-
-## Próximas Melhorias
-
-- Autenticação e controle de acesso
-- Mais tipos de transações (pagamentos, investimentos)
-- Dashboard com gráficos e relatórios
-- Exportação de extratos em PDF
